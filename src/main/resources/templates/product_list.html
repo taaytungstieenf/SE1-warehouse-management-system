@@ -7,6 +7,11 @@
 <body class="container mt-4">
 <h2>Product List</h2>
 <a href="/products/new" class="btn btn-primary mb-3">Add Product</a>
+<form th:action="@{/products/search}" method="get" class="d-flex mb-3">
+    <input type="text" name="code" class="form-control me-2" placeholder="Search by code">
+    <button type="submit" class="btn btn-outline-primary">Search</button>
+</form>
+
 <table class="table table-bordered">
     <thead>
     <tr><th>ID</th><th>Name</th><th>Code</th><th>Quantity</th></tr>
@@ -17,6 +22,11 @@
         <td th:text="${product.name}"></td>
         <td th:text="${product.code}"></td>
         <td th:text="${product.quantity}"></td>
+        <td>
+            <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-sm btn-warning">Edit</a>
+            <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn btn-sm btn-danger"
+               onclick="return confirm('Are you sure?')">Delete</a>
+        </td>
     </tr>
     </tbody>
 </table>

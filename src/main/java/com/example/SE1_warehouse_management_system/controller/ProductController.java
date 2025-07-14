@@ -29,4 +29,25 @@ public class ProductController {
         service.save(product);
         return "redirect:/products";
     }
+    //
+    @GetMapping("/products/edit/{id}")
+    public String showEditProductForm(@PathVariable("id") Long id, Model model) {
+        Product product = service.get(id);
+        model.addAttribute("product", product);
+        return "product_form";
+    }
+
+    @GetMapping("/products/delete/{id}")
+    public String deleteProduct(@PathVariable("id") Long id) {
+        service.deleteById(id);
+        return "redirect:/products";
+    }
+
+    @GetMapping("/products/search")
+    public String searchProducts(@RequestParam("code") String code, Model model) {
+        Product product = service.findByCode(code);
+        model.addAttribute("searchResult", product);
+        return "product_search";
+    }
+
 }
